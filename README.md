@@ -14,7 +14,7 @@ This project automates the UI testing of Amazon's website using Selenium WebDriv
 
 - Java 8 or higher
 - Maven
-- Chrome WebDriver
+- Chrome WebDriver(Optional)
 - IDE (IntelliJ IDEA is recommended)
 - Git
 
