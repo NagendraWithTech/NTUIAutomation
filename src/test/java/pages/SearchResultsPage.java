@@ -8,27 +8,37 @@ import java.util.List;
 
 public class SearchResultsPage {
     private WebDriver driver;
+    private By productTitles = By.cssSelector(".s-title");
     private By nextPageButton = By.cssSelector(".s-pagination-next");
-    private By filterOption = By.cssSelector("span.a-list-item > a > span"); // Adjust the selector based on the filter
-    private By productTitles = By.cssSelector("span.a-size-medium.a-color-base.a-text-normal");
 
     public SearchResultsPage(WebDriver driver) {
         this.driver = driver;
-    }
-
-    public void clickNextPage() {
-        driver.findElement(nextPageButton).click();
-    }
-
-    public void applyFilter(String filter) {
-        driver.findElement(By.xpath("//span[text()='" + filter + "']")).click();
     }
 
     public List<WebElement> getProductTitles() {
         return driver.findElements(productTitles);
     }
 
+    public void applyFilter(String filter) {
+        // Implement filter application logic here
+        //Requirements are not clear as of now
+    }
+
+    public ProductDetailsPage clickOnProduct(int index) {
+        List<WebElement> products = getProductTitles();
+        if (index < products.size()) {
+            products.get(index).click();
+            return new ProductDetailsPage(driver);
+        } else {
+            throw new IllegalArgumentException("Index out of bounds for product list");
+        }
+    }
+
     public boolean isNextPageButtonPresent() {
-        return driver.findElements(nextPageButton).size() > 0;
+        return !driver.findElements(nextPageButton).isEmpty();
+    }
+
+    public void clickNextPage() {
+        driver.findElement(nextPageButton).click();
     }
 }
